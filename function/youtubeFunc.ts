@@ -3,7 +3,7 @@ import youtube from '../item/youtube'
 import * as inquirer from 'inquirer'
 import * as puppeteer from 'puppeteer'
 import * as ora from 'ora'
-import  chalk from 'chalk'
+import chalk from 'chalk'
 
 let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
     let page: puppeteer.Page = await browser.newPage()
@@ -55,10 +55,16 @@ const menu = async () => {
 
 const search = async (page: puppeteer.Page, keyWord: string) => {
     await page.waitForSelector(youtube.searchSelector)
-    await page.evaluate(function (obj) {
+    await page.evaluate((obj) => {
         let element = <HTMLInputElement>document.querySelector(obj.selector)
         element.value = obj.keyword
         element.focus()
     }, { keyword: keyWord, selector: youtube.searchSelector })
     await page.keyboard.press('Enter')
+    //play random video
+    await page.waitForSelector(youtube.playSelector)
+    await page.evaluate((selector) => {
+        let element = <HTMLInputElement>document.querySelector(selector)
+        element.click()
+    }, youtube.playSelector)
 }
