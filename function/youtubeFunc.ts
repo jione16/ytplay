@@ -56,11 +56,13 @@ const menu = async () => {
 const search = async (page: puppeteer.Page, keyWord: string) => {
     await page.waitForSelector(youtube.searchSelector)
     await page.evaluate((obj) => {
-        let element = <HTMLInputElement>document.querySelector(obj.selector)
+        let element = <HTMLInputElement>document.querySelector(obj.searchSelector)
+        let form = <HTMLFormElement>document.querySelector(obj.formSelector)
         element.value = obj.keyword
-        element.focus()
-    }, { keyword: keyWord, selector: youtube.searchSelector })
-    await page.keyboard.press('Enter')
+        //element.focus()
+        form.submit()
+    }, { keyword: keyWord, searchSelector: youtube.searchSelector,formSelector:youtube.formSelector })
+    //await page.keyboard.press('Enter')
     //play random video
     await page.waitForNavigation()
     await page.waitForSelector(youtube.playSelector)
