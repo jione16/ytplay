@@ -62,6 +62,7 @@ const search = async (page: puppeteer.Page, keyWord: string) => {
     }, { keyword: keyWord, selector: youtube.searchSelector })
     await page.keyboard.press('Enter')
     //play random video
+    await page.waitForNavigation()
     await page.waitForSelector(youtube.playSelector)
     await page.evaluate((selector) => {
         let element = <HTMLInputElement>document.querySelector(selector)
