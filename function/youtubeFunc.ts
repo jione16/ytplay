@@ -2,12 +2,16 @@
 import youtube from '../item/youtube'
 import * as inquirer from 'inquirer'
 import * as puppeteer from 'puppeteer'
+import * as ora from 'ora'
+import  chalk from 'chalk'
 
 let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
     let page: puppeteer.Page = await browser.newPage()
     let isExit: boolean = false
+    let spinner = ora("Loading unicorns").start("please wait..")
     await page.goto(youtube.URL)
-    console.log(`Search for YouTube video \n Type "-m" to open menu`)
+    spinner.stop()
+    console.log(`-${chalk.green('Type to search YouTube video')} \n-${chalk.yellow('Type "-m" to open menu')}`)
     while (true) {
         await inquirer.prompt({ type: 'input', name: 'reply', message: ">" })
             .then(async (answer) => {
