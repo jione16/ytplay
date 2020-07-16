@@ -21,7 +21,12 @@ let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
                         isExit = true
                     }
 
-                } else {//search
+                }
+                //get url
+                else if (answer.reply == "-url") {
+                    console.log(page.url())
+                }
+                else {//search
                     await search(page, answer.reply)
                 }
             })
@@ -61,7 +66,7 @@ const search = async (page: puppeteer.Page, keyWord: string) => {
         element.value = obj.keyword
         //element.focus()
         form.submit()
-    }, { keyword: keyWord, searchSelector: youtube.searchSelector,formSelector:youtube.formSelector })
+    }, { keyword: keyWord, searchSelector: youtube.searchSelector, formSelector: youtube.formSelector })
     //await page.keyboard.press('Enter')
     //play random video
     await page.waitForNavigation()
