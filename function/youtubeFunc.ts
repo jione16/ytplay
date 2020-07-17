@@ -15,7 +15,10 @@ let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
     while (true) {
         await inquirer.prompt({ type: 'input', name: 'reply', message: ">" })
             .then(async (answer) => {
-                if (answer.reply == "-m") {
+                if (!answer.reply && !answer.reply.trim()) {
+                    return
+                }
+                else if (answer.reply == "-m") {
                     let option: string = await menu()
                     if (option == "Home") {
                         isExit = true
