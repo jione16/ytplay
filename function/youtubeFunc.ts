@@ -21,7 +21,10 @@ let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
                         isExit = true
                     }
 
-                } else {//search
+                }else if(answer.reply == "-next"){
+                    await next(page)
+                } 
+                else {//search
                     await search(page, answer.reply)
                 }
             })
@@ -52,6 +55,15 @@ const menu = async () => {
     return option
 }
 
+
+const next = async(page:puppeteer.Page)=>{
+    await page.waitForNavigation()
+    await page.waitForSelector(youtube.nextButton)
+    await page.evaluate((selector) => {
+        let element = <HTMLInputElement>document.querySelector(selector)
+        element.click()
+    }, youtube.nextButton)
+}
 
 const search = async (page: puppeteer.Page, keyWord: string) => {
     await page.waitForSelector(youtube.searchSelector)
