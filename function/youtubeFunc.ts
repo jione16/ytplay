@@ -63,7 +63,6 @@ const menu = async () => {
 
 
 const next = async (page: puppeteer.Page) => {
-    await page.waitForNavigation()
     await page.waitForSelector(youtube.nextButton)
     await page.evaluate((selector) => {
         let element = <HTMLInputElement>document.querySelector(selector)
