@@ -23,22 +23,14 @@ let handleYouTubeFunc = async (browser: puppeteer.Browser) => {
                     if (option == "Home") {
                         isExit = true
                     }
-
-<<<<<<< .mine
-                }else if(answer.reply == "-next"){
+                } else if (answer.reply == "-next") {
                     await next(page)
-                } 
-                else {//search
-
-
-=======
                 }
                 //get url
                 else if (answer.reply == "-url") {
                     console.log(page.url())
                 }
                 else {//search
->>>>>>> .theirs
                     await search(page, answer.reply)
                 }
             })
@@ -70,7 +62,7 @@ const menu = async () => {
 }
 
 
-const next = async(page:puppeteer.Page)=>{
+const next = async (page: puppeteer.Page) => {
     await page.waitForNavigation()
     await page.waitForSelector(youtube.nextButton)
     await page.evaluate((selector) => {
