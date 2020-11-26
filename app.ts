@@ -21,7 +21,7 @@ const start = async () => {
                     isExit = true
                     return
                 } else {
-                    browser = await puppeteer.launch({ headless: false, defaultViewport: null, args: [`--window-size=50,50`] })
+                    browser = await puppeteer.launch({ headless: false, defaultViewport: null, args: [`--window-size=50,50`,'--autoplay-policy=no-user-gesture-required'],ignoreDefaultArgs:['--mute-audio'] })
                     await handleYoutubeFunc(browser)
                 }
             })
